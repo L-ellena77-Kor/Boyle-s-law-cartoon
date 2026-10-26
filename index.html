@@ -155,6 +155,7 @@ tr.new td{animation:rowin .8s ease}
 .j-pour{animation:jPour 6s linear infinite}
 .j-data{animation:jData 6s linear infinite}
 .beaker{cursor:pointer}
+.srcl{font-size:.85em;opacity:.9}.srcl a{color:#1d5fa0;text-decoration:underline}
 .replay{position:absolute;right:.4rem;bottom:.4rem;z-index:2;font:inherit;font-family:var(--display);font-size:1rem;background:#fff;color:#1b1a17;
   border:2px solid #0a0a0a;border-radius:999px;padding:.1rem .7rem;cursor:pointer}
 .zoomhint{position:absolute;right:.4rem;top:.4rem;z-index:2;font-family:var(--display);font-size:.9rem;color:#5a4528;
@@ -282,11 +283,11 @@ tr.new td{animation:rowin .8s ease}
             <svg viewBox="0 0 400 240" aria-hidden="true">
               <rect width="400" height="240" fill="#efe7d3"/>
               
-              <path d="M150 90 L150 196 Q150 224 195 224 Q240 224 240 196 L240 28" fill="none" stroke="#0a0a0a" stroke-width="24"/>
+              <g id="tilt1"><path d="M150 90 L150 196 Q150 224 195 224 Q240 224 240 196 L240 28" fill="none" stroke="#0a0a0a" stroke-width="24"/>
               <path d="M138 90 A12 12 0 0 1 162 90" fill="#0a0a0a"/>
               <path d="M150 90 L150 196 Q150 224 195 224 Q240 224 240 196 L240 28" fill="none" stroke="#fbfdfe" stroke-width="16"/>
               <path d="M142 90 A8 8 0 0 1 158 90 Z" fill="#fbfdfe"/>
-              <g id="jt1"></g>
+              <g id="jt1"></g></g>
               <g id="cup1" transform="translate(253 22)"><path d="M0 0 L26 0 L23 30 L3 30 Z" fill="#cfe9f5" stroke="#0a0a0a" stroke-width="2.5" stroke-linejoin="round"/><path id="cupHg1" d="M1.3 15 L24.7 15 L23 30 L3 30 Z" fill="#7d8894"/></g><path id="str1" d="" fill="none" stroke="#7d8894" stroke-width="4" stroke-linecap="round" opacity="0"/>
               <circle class="seal-ring" cx="150" cy="84" r="16" fill="none" stroke="#e0522d" stroke-width="3.5"/>
               
@@ -326,18 +327,18 @@ tr.new td{animation:rowin .8s ease}
           </div>
           <div class="say"><button class="face boyle" type="button" aria-label="보일 사진 넣기"></button>
             <div class="sb">한쪽 끝을 막은 J자관에 수은을 더 부으면, 갇힌 공기는 어떻게 될까?</div></div>
-          <div class="tip">보일은 한쪽 끝이 막힌 J자관에 수은을 부어 공기를 가두었어요. 관이 약 3m나 되어 계단에 세웠고, 유리관이 깨져 수은이 쏟아지는 일도 있었어요. 장치는 조수 로버트 훅(탄성력의 그 훅!)이 만들었어요.</div>
+          <div class="tip">보일은 수은을 조금 붓고 <b>관을 여러 번 기울여</b>, 갇힐 공기가 수은 옆으로 드나들며 바깥 공기와 같은 압력이 되게 맞춘 뒤 실험을 시작했어요. 관이 약 3m나 되어 계단에 세웠고, 장치는 조수 로버트 훅이 만들었어요.<br><span class="srcl">보일의 원문(1662, 영어): <a href="https://quod.lib.umich.edu/e/eebo/A28956.0001.001" target="_blank" rel="noopener">『공기의 용수철과 무게에 관한 학설의 변호』 전문</a> · <a href="https://galileo.phys.virginia.edu/classes/152.mf1i.spring02/Boyle.htm" target="_blank" rel="noopener">관 기울이기 부분 해설</a></span></div>
         </article>
 
         <article class="panel" data-i="1">
           <div class="cap">J자관 실험 결과</div>
           <div class="art">
             <svg viewBox="0 0 400 240" aria-hidden="true">
-              <path d="M110 64 L110 190 Q110 226 180 226 Q250 226 250 190 L250 22" fill="none" stroke="#0a0a0a" stroke-width="26"/>
+              <g id="tilt2"><path d="M110 64 L110 190 Q110 226 180 226 Q250 226 250 190 L250 22" fill="none" stroke="#0a0a0a" stroke-width="26"/>
               <path d="M97 64 A13 13 0 0 1 123 64" fill="#0a0a0a"/>
               <path d="M110 64 L110 190 Q110 226 180 226 Q250 226 250 190 L250 22" fill="none" stroke="#fbfdfe" stroke-width="18"/>
               <path d="M101 64 A9 9 0 0 1 119 64 Z" fill="#fbfdfe"/>
-              <g id="jt2"></g>
+              <g id="jt2"></g></g>
               <g stroke="#1b1a17" stroke-width="1.5">
                 <path d="M124 70 H130 M124 80 H130 M124 90 H130 M124 100 H130 M124 110 H130 M124 130 H130 M124 140 H130 M124 150 H130 M124 160 H130 M124 170 H130"/>
                 <path d="M124 120 H134 M124 180 H134" stroke-width="2.5"/>
@@ -780,7 +781,9 @@ function makeJ(id,g){
   const bend=mk('path',{d:`M${g.cx} ${g.bot} Q${g.xS} ${g.bot} ${g.xS} ${g.by}`,fill:'none'},root);
   const Lb=bend.getTotalLength();bend.remove();
   const drops=[0,1,2].map(()=>mk('ellipse',{cx:g.xL,cy:0,rx:g.w*.22,ry:g.w*.42,fill:'#5f6a76',opacity:0},root));
-  return{g,air,dome,mL,mR,Lb,drops};
+  const bp=mk('path',{d:`M${g.xL} ${g.y0-4} L${g.xL} ${g.by} Q${g.xL} ${g.bot} ${g.cx} ${g.bot} Q${g.xS} ${g.bot} ${g.xS} ${g.by} L${g.xS} ${g.y0-4}`,fill:'none'},root);const BL=bp.getTotalLength();
+  const bub=mk('circle',{r:g.w*.38,fill:'#d8f1fb',stroke:'#2b9fc6','stroke-width':1.5,opacity:0},root);
+  return{g,air,dome,mL,mR,Lb,drops,bp,BL,bub};
 }
 const JT=[makeJ('jt1',{noPress:true,topA:86,xS:150,xL:240,cx:195,bot:224,by:196,topS:90,topL:28,y0:184,y1:150,yLf:100,w:16,dome:'M142 90 A8 8 0 0 1 158 90 Z'}),
           makeJ('jt2',{topA:60,xS:110,xL:250,cx:180,bot:226,by:190,topS:64,topL:22,y0:180,y1:120,yLf:30,w:18,dome:'M101 64 A9 9 0 0 1 119 64 Z'})];
@@ -790,7 +793,7 @@ function jReset(play){jS.start=play?performance.now():null;jS.P=jS.from=jS.to=1;
 function jTap(){
   if(jS.start==null){jReset(true);return}
   const t=(performance.now()-jS.start)/1000;
-  if(t<5.5||jS.anim) return;
+  if(t<9.6||jS.anim) return;
   if(jS.P>=1.999){jReset(true);jS.doneAt=null;return}
   jS.from=jS.P;jS.to=2;jS.t0=performance.now();jS.anim=true;
 }
@@ -808,17 +811,18 @@ function jTap(){
 function jState(now){
   if(jS.anim){const k=cl01((now-jS.t0)/3000);jS.P=jS.from+(jS.to-jS.from)*sm01(k);if(k>=1){jS.P=jS.to;jS.anim=false}}
   const t=jS.start==null?0:(now-jS.start)/1000;
-  const fill=sm01((t-1.5)/2.8),trap=sm01((t-4.3)/1.2);
+  const fill=sm01((t-1.5)/2.8),trap=sm01((t-8.4)/1.2),tiltPh=cl01((t-4.5)/3.8),tilt=t>4.5&&t<8.3?Math.sin(tiltPh*Math.PI*4)*11*Math.sin(tiltPh*Math.PI):0;
   const P=jS.P,dark=trap*.45+.5*(P-1);
   const pouring=(t>1.2&&t<4.3)||jS.anim;
-  const wait=t>=5.5&&!jS.anim;
+  const wait=t>=9.6&&!jS.anim;
   let lines;
   if(jS.start==null||t<1.2) lines=['① 공기만','있어요','왼쪽 끝은 막힘!'];
-  else if(t<4.3) lines=['② 수은을','부어요',''];
-  else if(jS.anim) lines=['④ 더 부으면','공기가 눌려요',''];
-  else if(P<1.01) lines=['③ 공기가','갇혔어요!',wait?'▲ 비커 누르기':''];
-  else lines=['⑤ 압력 2배','→ 24칸, 절반!','▲ 처음부터'];
-  return{t,fill,trap,P,dark,pouring,wait,lines};
+  else if(t<4.5) lines=['② 수은을','조금 부어요',''];
+  else if(t<8.4) lines=['③ 관을 기울여','압력 맞추기',''];
+  else if(jS.anim) lines=['⑤ 더 부으면','공기가 눌려요',''];
+  else if(P<1.01) lines=['④ 갇힌 공기','= 바깥 압력',wait?'▲ 비커 누르기':''];
+  else lines=['⑥ 압력 2배','→ 24칸, 절반!','▲ 처음부터'];
+  return{t,fill,trap,P,dark,pouring,wait,lines,tilt,tiltPh};
 }
 function drawJT(now){
   const st=jState(now);
@@ -830,6 +834,10 @@ function drawJT(now){
     const bottom=st.fill>=1?yS:g.y0;
     J.air.setAttribute('height',Math.max(0,bottom-g.topS));J.air.setAttribute('opacity',dk);
     if(J.dome) J.dome.setAttribute('opacity',dk);
+    {const tg=$(J===JT[0]?'#tilt1':'#tilt2');if(tg) tg.setAttribute('transform',`rotate(${st.tilt} ${g.cx} ${g.bot})`)}
+    if(st.tilt!==0||(st.t>4.5&&st.t<8.3)){const ph=(st.tiltPh*2)%1,dir=Math.floor(st.tiltPh*2)%2,f=dir?1-ph:ph,pt=J.bp.getPointAtLength(f*J.BL);
+      J.bub.setAttribute('cx',pt.x+(f>.25&&f<.75?g.w*.3:0));J.bub.setAttribute('cy',pt.y-(f>.25&&f<.75?g.w*.25:0));J.bub.setAttribute('opacity',1)}
+    else J.bub.setAttribute('opacity',0);
     const surf=st.fill>0?yL:g.bot;
     J.drops.forEach((d,i)=>{
       if(!pour){d.setAttribute('opacity',0);return}
@@ -846,13 +854,14 @@ function drawJT(now){
     str.setAttribute('opacity',on?1:0);
     if(on){const wob=Math.sin(now/90)*1.2;str.setAttribute('d',`M${x0} ${y0+2} Q${x0-3+wob} ${y0+6} ${J.g.xL} ${J.g.topL+10}`)}
   });
+  $$('.seal-ring').forEach(r=>r.style.visibility=st.tilt!==0?'hidden':'');
   const set=(id,v)=>{const e=$('#'+id);if(e)e.setAttribute('opacity',v)};
   const done=st.P>=1.999;
   if(done&&!jS.doneAt) jS.doneAt=now; if(!done) jS.doneAt=null;
   
   const sb2=$('#sb2');if(sb2){const tx=done?'압력을 정확히 2배로 했더니 부피가 딱 절반이 됐어! 이게 내 발견이야!':'비커를 눌러 수은을 더 부어 봐! 누르는 힘이 2배가 되면 공기 부피는?';if(sb2.textContent!==tx) sb2.textContent=tx}
   set('j2trap',Math.min(1,st.trap*2));set('j1trap',Math.min(1,st.trap*2));
-  {const L=(jS.start==null||st.t<1.2)?['① 공기만','있어요','']:st.t<4.3?['② 수은을','부어요','']:['③ 공기가','갇혔어요!','더 부으면?'];
+  {const L=(jS.start==null||st.t<1.2)?['① 공기만','있어요','']:st.t<4.5?['② 수은을','조금 부어요','']:st.t<8.4?['③ 관을','기울여요','압력 맞추기']:['④ 갇힌 공기','= 바깥 압력','더 부으면?'];
    ['j1s1','j1s2','j1s3'].forEach((id,i)=>{const e=$('#'+id);if(e&&e.textContent!==L[i])e.textContent=L[i]})}set('j2init',st.trap>0?1:0);set('j2data',st.P>=1.999?1:0);
   const pulse=st.wait?(.35+.65*Math.abs(Math.sin(now/450))):0;
   {const l=$('#bkLabel');if(l) l.setAttribute('opacity',st.wait?pulse:1)}
